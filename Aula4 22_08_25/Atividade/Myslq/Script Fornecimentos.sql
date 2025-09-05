@@ -93,3 +93,8 @@ CREATE INDEX idx_peca_cor ON Peca(Cor);
 
 -- Índice para buscar projetos pelo nome
 CREATE INDEX idx_projeto_nome ON Projeto(PRnome);
+
+SHOW INDEX FROM Fornecedor;
+SHOW INDEX FROM Peca;
+SHOW INDEX FROM Projeto;
+
