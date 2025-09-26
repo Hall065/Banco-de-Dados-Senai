@@ -85,10 +85,10 @@ $result = $mysqli->query($query);
     </tr>
     <?php while($row = $result->fetch_assoc()): ?>
     <tr>
-        <td><?php echo htmlspecialchars($row['aluno']); ?></td>
-        <td><?php echo htmlspecialchars($row['curso']); ?></td>
-        <td><?php echo htmlspecialchars($row['status']); ?></td>
-        <td><?php echo htmlspecialchars($row['data_inscricao']); ?></td>
+        <td><?php echo htmlspecialchars($row['aluno'] ?? ''); ?></td>
+        <td><?php echo htmlspecialchars($row['curso'] ?? ''); ?></td>
+        <td><?php echo htmlspecialchars($row['status'] ?? ''); ?></td>
+        <td><?php echo htmlspecialchars($row['data_inscricao'] ?? ''); ?></td>
         <td><?php echo htmlspecialchars($row['nota'] ?? ''); ?></td>
         <td><?php echo htmlspecialchars($row['comentario'] ?? ''); ?></td>
     </tr>
