@@ -61,13 +61,6 @@ $result = $mysqli->query($query);
     tr:hover {
         background-color: #f1f1f1;
     }
-    .filter-form input, .filter-form select {
-        padding: 5px;
-        margin-right: 10px;
-    }
-    .filter-form {
-        margin-bottom: 15px;
-    }
 </style>
 </head>
 <body>
