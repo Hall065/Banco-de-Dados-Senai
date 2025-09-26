@@ -2,7 +2,6 @@
 // Conecta ao banco de dados "Cursos_Online" no MySQL
 $mysqli = mysqli_connect('localhost', 'root', 'senaisp', 'Cursos_Online');
 
-
 // Define as colunas que podem ser usadas para ordenar a tabela
 $columns = array('nome', 'titulo', 'data_inscricao', 'nota', 'status');
 // Verifica se o usuário passou uma coluna válida via GET para ordenação, senão usa a primeira do array
@@ -10,33 +9,15 @@ $column = isset($_GET['column']) && in_array($_GET['column'], $columns) ? $_GET[
 // Verifica se a direção da ordenação foi passada via GET ('desc'), senão usa 'ASC'
 $sort_order = isset($_GET['order']) && strtolower($_GET['order']) == 'desc' ? 'DESC' : 'ASC';
 
-// Captura filtros opcionais passados via GET
-$curso_ativo = isset($_GET['curso_ativo']) ? $_GET['curso_ativo'] : '';
-$nota_min = isset($_GET['nota_min']) ? (float)$_GET['nota_min'] : 0;
-$aluno_pesquisa = isset($_GET['aluno']) ? $_GET['aluno'] : '';
-
 // Monta a query principal com JOINs entre Inscricoes, Alunos, Cursos e Avaliacoes
 $query = "
-SELECT a.nome AS aluno, c.titulo AS curso, c.status, i.data_inscricao, av.nota, av.comentario
-FROM Inscricoes i
-LEFT JOIN Alunos a ON i.aluno_id = a.id
-LEFT JOIN Cursos c ON i.curso_id = c.id
-LEFT JOIN Avaliacoes av ON av.inscricao_id = i.id
-WHERE 1=1
+    SELECT a.nome AS aluno, c.titulo AS curso, c.status, i.data_inscricao, av.nota, av.comentario
+    FROM Inscricoes i
+    LEFT JOIN Alunos a ON i.aluno_id = a.id
+    LEFT JOIN Cursos c ON i.curso_id = c.id
+    LEFT JOIN Avaliacoes av ON av.inscricao_id = i.id
+    WHERE 1=1
 ";
-
-// Aplica o filtro de status do curso se definido
-if ($curso_ativo !== '') {
-    $query .= " AND c.status = '".($curso_ativo === 'ativo' ? 'ativo' : 'inativo')."'";
-}
-// Aplica o filtro de nota mínima se definido
-if ($nota_min > 0) {
-    $query .= " AND (av.nota >= $nota_min)";
-}
-// Aplica filtro de pesquisa pelo nome do aluno se definido
-if ($aluno_pesquisa !== '') {
-    $query .= " AND a.nome LIKE '%$aluno_pesquisa%'";
-}
 
 // Adiciona a ordenação final da query
 $query .= " ORDER BY $column $sort_order";
@@ -91,19 +72,7 @@ $result = $mysqli->query($query);
 </head>
 <body>
 
-<h2>Cursos Online - Inscrições e Avaliações</h2>
-
-<form method="get" class="filter-form">
-    Aluno: <input type="text" name="aluno" value="<?php echo htmlspecialchars($aluno_pesquisa); ?>">
-    Curso: 
-    <select name="curso_ativo">
-        <option value="">Todos</option>
-        <option value="ativo" <?php echo $curso_ativo === 'ativo' ? 'selected' : ''; ?>>Ativos</option>
-        <option value="inativo" <?php echo $curso_ativo === 'inativo' ? 'selected' : ''; ?>>Inativos</option>
-    </select>
-    Nota mínima: <input type="number" step="0.01" name="nota_min" value="<?php echo $nota_min; ?>">
-    <button type="submit">Filtrar</button>
-</form>
+    <h2>Cursos Online - Inscrições e Avaliações</h2>
 
 <table>
     <tr>
@@ -125,6 +94,5 @@ $result = $mysqli->query($query);
     </tr>
     <?php endwhile; ?>
 </table>
-
 </body>
 </html>
