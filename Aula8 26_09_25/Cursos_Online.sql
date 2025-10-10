@@ -198,3 +198,4 @@ FROM Inscricoes i
 JOIN Alunos a ON i.aluno_id = a.id
 JOIN Cursos c ON i.curso_id = c.id
 WHERE a.nome = 'Hyron' AND c.titulo = 'Python';
+
