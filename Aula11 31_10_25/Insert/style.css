@@ -1,0 +1,38 @@
+.form-box {
+    width: 300px;
+    margin: 20px auto;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-family: Arial;
+    background: #f9f9f9;
+}
+
+.form-box label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-box input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.form-box button {
+    width: 100%;
+    padding: 10px;
+    background: #0095ff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.form-box button:hover {
+    background: #005fcc;
+}

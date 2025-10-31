@@ -1,0 +1,11 @@
+CREATE DATABASE livraria;
+USE livraria;
+
+CREATE TABLE Usuario (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE
+);
+
+ALTER TABLE Usuario
+RENAME TO usuarios;
