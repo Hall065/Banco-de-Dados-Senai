@@ -5,7 +5,7 @@ $result = $conn->query("SELECT * FROM usuarios");
 
 echo"<h2>Usuários</h2>";
 echo"<table border='1'>";
-echo "<tr><th>ID</th><th>Nome</th><th>Email</th><th>Ações</th></tr>";
+echo "<tr><th>ID</th><th>Nome</th><th>Email</th><th>Editar</th><th>Deletar</th></tr>";
 
 while ($row = $result->fetch_assoc()) {
     echo "<tr>
@@ -14,6 +14,9 @@ while ($row = $result->fetch_assoc()) {
         <td>{$row['email']}</td>
         <td>
             <a href='edit.php?id={$row['id']}'>Editar</a>
+        </td>
+        <td>
+            <a href='delete.php?id={$row['id']}' onclick=\"return confirm('Tem certeza que deseja deletar este usuário?');\">Deletar</a>
         </td>
     </tr>";
 }
