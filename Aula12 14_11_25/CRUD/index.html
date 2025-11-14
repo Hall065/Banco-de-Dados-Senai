@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Oficina Mecânica</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🔧 Sistema de Oficina Mecânica</h1>
+            <p>Gerenciamento completo de clientes, veículos e serviços</p>
+        </header>
+
+        <div class="dashboard">
+            <div class="card">
+                <div class="card-icon">👤</div>
+                <h3>Clientes</h3>
+                <p>Gerenciar cadastro de clientes</p>
+                <div class="button-group">
+                    <a href="cliente/list.php" class="btn btn-primary">Listar</a>
+                    <a href="cliente/form.php" class="btn btn-secondary">Novo</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">🚗</div>
+                <h3>Veículos</h3>
+                <p>Gerenciar veículos cadastrados</p>
+                <div class="button-group">
+                    <a href="veiculo/list.php" class="btn btn-primary">Listar</a>
+                    <a href="veiculo/form.php" class="btn btn-secondary">Novo</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">🔧</div>
+                <h3>Mecânicos</h3>
+                <p>Gerenciar equipe de mecânicos</p>
+                <div class="button-group">
+                    <a href="mecanico/list.php" class="btn btn-primary">Listar</a>
+                    <a href="mecanico/form.php" class="btn btn-secondary">Novo</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">⚙️</div>
+                <h3>Serviços</h3>
+                <p>Gerenciar catálogo de serviços</p>
+                <div class="button-group">
+                    <a href="servico/list.php" class="btn btn-primary">Listar</a>
+                    <a href="servico/form.php" class="btn btn-secondary">Novo</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">📋</div>
+                <h3>Ordens de Serviço</h3>
+                <p>Gerenciar ordens de serviço</p>
+                <div class="button-group">
+                    <a href="ordem/list.php" class="btn btn-primary">Listar</a>
+                    <a href="ordem/form.php" class="btn btn-secondary">Nova</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">📊</div>
+                <h3>OS - Serviços</h3>
+                <p>Serviços vinculados às OS</p>
+                <div class="button-group">
+                    <a href="os_servico/list.php" class="btn btn-primary">Listar</a>
+                    <a href="os_servico/form.php" class="btn btn-secondary">Novo</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
