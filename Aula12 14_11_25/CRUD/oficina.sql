@@ -86,6 +86,16 @@ CREATE TABLE Peca (
     qtd_estoque INT NOT NULL DEFAULT 0
 );
 
+--================== OS_PECAS =================
+CREATE TABLE OS_Pecas (
+    id_os_peca INT AUTO_INCREMENT PRIMARY KEY,
+    id_os INT NOT NULL,
+    id_peca INT NOT NULL,
+    quantidade_usada INT NOT NULL,
+    FOREIGN KEY (id_os) REFERENCES OrdemServico(id_os),
+    FOREIGN KEY (id_peca) REFERENCES Peca(id_peca)
+);
+
 -- ================= INSERTS =================
 INSERT INTO Cliente (nome_cliente, cpf, email_cliente, telefone_cliente, endereco) VALUES
 ('João Mendes', '123.456.789-00', 'joao@gmail.com', '11987654321', 'Rua Alfa, 120'),
@@ -108,6 +118,12 @@ INSERT INTO OS_Mecanico (id_os, id_mecanico) VALUES
 (2, 2),
 (3, 3);
 
+INSERT INTO OS_Pecas (id_os, id_peca, quantidade_usada) VALUES
+(1, 1, 2),
+(1, 3, 1),
+(2, 2, 5),
+(3, 4, 1);
+
 INSERT INTO Servico (tempo_estimado, codigo, categoria, descricao, preco) VALUES
 ('01:00:00', 101, 'Revisão', 'Troca de óleo', 120.00),
 ('02:00:00', 202, 'Suspensão', 'Alinhamento e balanceamento', 150.00),
@@ -118,12 +134,6 @@ INSERT INTO OrdemServico (data_abertura, data_fechamento, status, observacoes, i
 ('2025-11-01', '2025-11-02', 'Concluída', 'Cliente pediu revisão geral.', 1),
 ('2025-11-03', NULL, 'Em andamento', 'Problema na suspensão.', 2),
 ('2025-11-05', '2025-11-06', 'Concluída', 'Troca de bateria realizada.', 4);
-
-INSERT INTO OS_Servico (preco_un, quantidade, subtotal, id_servico, id_os) VALUES
-(120.00, 1, 120.00, 1, 1),   -- Troca de óleo - OS 1
-(150.00, 1, 150.00, 2, 2),   -- Alinhamento - OS 2
-(80.00,  1, 80.00,  3, 3),   -- Bateria - OS 3
-(250.00, 1, 250.00, 4, 1);   -- Limpeza de bico - OS 1
 
 INSERT INTO OS_Servico (preco_un, quantidade, subtotal, id_servico, id_os, id_mecanico) VALUES
 (120.00, 1, 120.00, 1, 1, 1),
