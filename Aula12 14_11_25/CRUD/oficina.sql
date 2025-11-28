@@ -54,15 +54,36 @@ CREATE TABLE OrdemServico (
 );
 
 -- ================= OS_SERVICO =================
-CREATE TABLE OS_Servico (
+CREATE TABLE IF NOT EXISTS OS_Servico (
     id_os_servico INT AUTO_INCREMENT PRIMARY KEY,
     preco_un DECIMAL(10,2),
     quantidade INT,
     subtotal DECIMAL(10,2),
     id_servico INT,
     id_os INT,
+    id_mecanico INT,  -- novo campo para o mecânico responsável
     FOREIGN KEY (id_servico) REFERENCES Servico(id_servico),
-    FOREIGN KEY (id_os) REFERENCES OrdemServico(id_os)
+    FOREIGN KEY (id_os) REFERENCES OrdemServico(id_os),
+    FOREIGN KEY (id_mecanico) REFERENCES Mecanico(id_mecanico)
+);
+
+-- ================= OS_MECANICO =================
+CREATE TABLE OS_Mecanico (
+    id_os_mecanico INT AUTO_INCREMENT PRIMARY KEY,
+    id_os INT NOT NULL,
+    id_mecanico INT NOT NULL,
+    FOREIGN KEY (id_os) REFERENCES OrdemServico(id_os),
+    FOREIGN KEY (id_mecanico) REFERENCES Mecanico(id_mecanico)
+);
+
+-- ================= PEÇAS / ESTOQUE =================
+CREATE TABLE Peca (
+    id_peca INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    descricao VARCHAR(255),
+    preco_custo DECIMAL(10,2) NOT NULL,
+    preco_venda DECIMAL(10,2) NOT NULL,
+    qtd_estoque INT NOT NULL DEFAULT 0
 );
 
 -- ================= INSERTS =================
@@ -82,6 +103,11 @@ INSERT INTO Mecanico (nome_mecanico, especialidade, telefone_mecanico, email_mec
 ('Rafael Martins', 'Suspensão', '11992345678', 'rafael@oficina.com', 3000.00),
 ('André Costa', 'Elétrica', '11993456789', 'andre@oficina.com', 3500.00);
 
+INSERT INTO OS_Mecanico (id_os, id_mecanico) VALUES
+(1, 1),
+(2, 2),
+(3, 3);
+
 INSERT INTO Servico (tempo_estimado, codigo, categoria, descricao, preco) VALUES
 ('01:00:00', 101, 'Revisão', 'Troca de óleo', 120.00),
 ('02:00:00', 202, 'Suspensão', 'Alinhamento e balanceamento', 150.00),
@@ -98,3 +124,17 @@ INSERT INTO OS_Servico (preco_un, quantidade, subtotal, id_servico, id_os) VALUE
 (150.00, 1, 150.00, 2, 2),   -- Alinhamento - OS 2
 (80.00,  1, 80.00,  3, 3),   -- Bateria - OS 3
 (250.00, 1, 250.00, 4, 1);   -- Limpeza de bico - OS 1
+
+INSERT INTO OS_Servico (preco_un, quantidade, subtotal, id_servico, id_os, id_mecanico) VALUES
+(120.00, 1, 120.00, 1, 1, 1),
+(150.00, 1, 150.00, 2, 2, 2),
+(80.00, 1, 80.00, 3, 3, 3),
+(250.00, 1, 250.00, 4, 1, 1);
+
+-- Exemplos de inserts iniciais
+INSERT INTO Peca (nome, descricao, preco_custo, preco_venda, qtd_estoque) VALUES
+('Óleo 5W30', 'Óleo de motor sintético 5W30 1L', 25.00, 45.00, 20),
+('Filtro de óleo', 'Filtro para motores 1.0/1.6', 10.00, 20.00, 15),
+('Bateria 60Ah', 'Bateria automotiva 60Ah', 200.00, 320.00, 5),
+('Pano de limpeza', 'Pano de microfibra para limpeza', 5.00, 10.00, 50),
+('Pastilha de freio', 'Pastilha de freio dianteira', 80.00, 120.00, 12);

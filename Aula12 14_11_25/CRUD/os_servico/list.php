@@ -21,7 +21,7 @@ $result = $conn->query("SELECT oss.*, s.descricao, s.categoria, os.id_os
                 <a href="form.php" class="btn btn-success">➕ Novo Registro</a>
             </div>
             <table>
-                <tr><th>ID</th><th>OS</th><th>Serviço</th><th>Preço Un.</th><th>Qtd</th><th>Subtotal</th><th>Ações</th></tr>
+                <tr><th>ID</th><th>OS</th><th>Serviço</th><th>Preço Un.</th><th>Qtd</th><th>Subtotal</th><th>Mecânico Responsável</th><th>Ações</th></tr>
                 <?php while ($row = $result->fetch_assoc()): ?>
                 <tr>
                     <td><?php echo $row['id_os_servico']; ?></td>
@@ -30,6 +30,13 @@ $result = $conn->query("SELECT oss.*, s.descricao, s.categoria, os.id_os
                     <td>R$ <?php echo number_format($row['preco_un'], 2, ',', '.'); ?></td>
                     <td><?php echo $row['quantidade']; ?></td>
                     <td>R$ <?php echo number_format($row['subtotal'], 2, ',', '.'); ?></td>
+                    <td>
+                        <?php
+                        $mecanico = $conn->query("SELECT nome_mecanico FROM Mecanico WHERE id_mecanico = ".$row['id_mecanico']);
+                        $m = $mecanico->fetch_assoc();
+                        echo htmlspecialchars($m['nome_mecanico']);
+                        ?>
+                    </td>
                     <td>
                         <a href="edit.php?id=<?php echo $row['id_os_servico']; ?>" class="btn btn-primary" style="padding: 8px 15px; font-size: 0.9em;">✏️ Editar</a>
                         <a href="delete.php?id=<?php echo $row['id_os_servico']; ?>" class="btn btn-danger" style="padding: 8px 15px; font-size: 0.9em;" onclick="return confirm('Deletar?');">🗑️ Deletar</a>

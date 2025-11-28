@@ -70,6 +70,17 @@ $conn->close();
                     </option>
                 <?php endwhile; ?>
             </select>
+            <label>Mecânico Responsável:</label>
+            <select name="id_mecanico" required>
+                <option value="">Selecione um mecânico</option>
+                <?php
+                $mecanicos = $conn->query("SELECT id_mecanico, nome_mecanico FROM Mecanico ORDER BY nome_mecanico");
+                while ($m = $mecanicos->fetch_assoc()): ?>
+                    <option value="<?php echo $m['id_mecanico']; ?>" <?php echo (isset($row['id_mecanico']) && $row['id_mecanico'] == $m['id_mecanico']) ? 'selected' : ''; ?>>
+                        <?php echo htmlspecialchars($m['nome_mecanico']); ?>
+                    </option>
+                <?php endwhile; ?>
+            </select>
             <label>Preço Unitário:</label>
             <input type="number" step="0.01" name="preco_un" id="preco_un" placeholder="0.00" onchange="calcularSubtotal()" required>
             <label>Quantidade:</label>
