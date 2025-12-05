@@ -148,3 +148,10 @@ INSERT INTO Peca (nome, descricao, preco_custo, preco_venda, qtd_estoque) VALUES
 ('Bateria 60Ah', 'Bateria automotiva 60Ah', 200.00, 320.00, 5),
 ('Pano de limpeza', 'Pano de microfibra para limpeza', 5.00, 10.00, 50),
 ('Pastilha de freio', 'Pastilha de freio dianteira', 80.00, 120.00, 12);
+
+ALTER TABLE OS_Pecas
+ADD COLUMN preco_unitario_cobrado DECIMAL(10,2) NOT NULL DEFAULT 0;
+
+UPDATE OS_Pecas op
+JOIN Peca p ON op.id_peca = p.id_peca
+SET op.preco_unitario_cobrado = p.preco_venda;
